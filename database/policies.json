@@ -1,0 +1,170 @@
+[
+  {
+    "tablename": "objects",
+    "policyname": "owner delete project media",
+    "roles": "{authenticated}",
+    "cmd": "DELETE",
+    "qual": "((bucket_id = 'project-media'::text) AND (owner_id = (auth.uid())::text))",
+    "with_check": null
+  },
+  {
+    "tablename": "objects",
+    "policyname": "owner update project media",
+    "roles": "{authenticated}",
+    "cmd": "UPDATE",
+    "qual": "((bucket_id = 'project-media'::text) AND (owner_id = (auth.uid())::text))",
+    "with_check": "((bucket_id = 'project-media'::text) AND (owner_id = (auth.uid())::text))"
+  },
+  {
+    "tablename": "objects",
+    "policyname": "public read project media",
+    "roles": "{public}",
+    "cmd": "SELECT",
+    "qual": "(bucket_id = 'project-media'::text)",
+    "with_check": null
+  },
+  {
+    "tablename": "objects",
+    "policyname": "authenticated upload project media",
+    "roles": "{authenticated}",
+    "cmd": "INSERT",
+    "qual": null,
+    "with_check": "((bucket_id = 'project-media'::text) AND ((storage.foldername(name))[1] = (auth.uid())::text))"
+  },
+  {
+    "tablename": "profiles",
+    "policyname": "self manage profile",
+    "roles": "{authenticated}",
+    "cmd": "ALL",
+    "qual": "(auth.uid() = id)",
+    "with_check": "(auth.uid() = id)"
+  },
+  {
+    "tablename": "profiles",
+    "policyname": "authenticated read profiles",
+    "roles": "{authenticated}",
+    "cmd": "SELECT",
+    "qual": "true",
+    "with_check": null
+  },
+  {
+    "tablename": "ideas",
+    "policyname": "author delete ideas",
+    "roles": "{authenticated}",
+    "cmd": "DELETE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": null
+  },
+  {
+    "tablename": "ideas",
+    "policyname": "author update ideas",
+    "roles": "{authenticated}",
+    "cmd": "UPDATE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "ideas",
+    "policyname": "authenticated create ideas",
+    "roles": "{authenticated}",
+    "cmd": "INSERT",
+    "qual": null,
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "ideas",
+    "policyname": "authenticated read ideas",
+    "roles": "{authenticated}",
+    "cmd": "SELECT",
+    "qual": "true",
+    "with_check": null
+  },
+  {
+    "tablename": "comments",
+    "policyname": "author delete comments",
+    "roles": "{authenticated}",
+    "cmd": "DELETE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": null
+  },
+  {
+    "tablename": "comments",
+    "policyname": "authenticated create comments",
+    "roles": "{authenticated}",
+    "cmd": "INSERT",
+    "qual": null,
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "comments",
+    "policyname": "authenticated read comments",
+    "roles": "{authenticated}",
+    "cmd": "SELECT",
+    "qual": "true",
+    "with_check": null
+  },
+  {
+    "tablename": "gallery_items",
+    "policyname": "author delete gallery",
+    "roles": "{authenticated}",
+    "cmd": "DELETE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": null
+  },
+  {
+    "tablename": "gallery_items",
+    "policyname": "author update gallery",
+    "roles": "{authenticated}",
+    "cmd": "UPDATE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "gallery_items",
+    "policyname": "authenticated create gallery",
+    "roles": "{authenticated}",
+    "cmd": "INSERT",
+    "qual": null,
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "gallery_items",
+    "policyname": "authenticated read gallery",
+    "roles": "{authenticated}",
+    "cmd": "SELECT",
+    "qual": "true",
+    "with_check": null
+  },
+  {
+    "tablename": "decisions",
+    "policyname": "author delete decisions",
+    "roles": "{authenticated}",
+    "cmd": "DELETE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": null
+  },
+  {
+    "tablename": "decisions",
+    "policyname": "author update decisions",
+    "roles": "{authenticated}",
+    "cmd": "UPDATE",
+    "qual": "(auth.uid() = author_id)",
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "decisions",
+    "policyname": "authenticated create decisions",
+    "roles": "{authenticated}",
+    "cmd": "INSERT",
+    "qual": null,
+    "with_check": "(auth.uid() = author_id)"
+  },
+  {
+    "tablename": "decisions",
+    "policyname": "authenticated read decisions",
+    "roles": "{authenticated}",
+    "cmd": "SELECT",
+    "qual": "true",
+    "with_check": null
+  }
+]
