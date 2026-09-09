@@ -1,4 +1,14 @@
--- REFERENCE SNAPSHOT ONLY. Do not execute against production.
+-- Scoped production fix: bind idea ownership to the authenticated Hub member.
+ALTER TABLE public.ideas
+  ADD COLUMN IF NOT EXISTS member_id uuid REFERENCES public.hub_members(id);
+
+UPDATE public.ideas i
+SET member_id = hm.id
+FROM public.hub_members hm
+WHERE i.member_id IS NULL
+  AND lower(trim(hm.login_name)) = 'devill'
+  AND lower(trim(i.author_name)) IN (lower(trim(hm.display_name)), lower(trim(hm.login_name)));
+
 CREATE OR REPLACE FUNCTION public.hub_api(p_token text, p_action text, p_payload jsonb DEFAULT '{}'::jsonb)
  RETURNS jsonb
  LANGUAGE plpgsql
@@ -8,6 +18,7 @@ AS $function$
 declare
   m public.hub_members%rowtype;
   item_author text;
+  item_member_id uuid;
   result jsonb;
   new_status text;
   target_id uuid;
@@ -24,7 +35,7 @@ begin
   if p_action='bootstrap' then
     select count(*) into unread_count from public.chat_messages cm
     where cm.member_id<>m.id and cm.created_at > coalesce((select cr.last_read_at from public.chat_reads cr where cr.member_id=m.id),'epoch'::timestamptz);
-    return jsonb_build_object('ok',true,'user',jsonb_build_object('name',m.display_name,'role',m.role),'ideas',coalesce((select jsonb_agg(to_jsonb(x) order by x.created_at desc) from public.ideas x),'[]'::jsonb),'gallery',coalesce((select jsonb_agg(to_jsonb(x) order by x.created_at desc) from public.gallery_items x),'[]'::jsonb),'decisions',coalesce((select jsonb_agg(to_jsonb(x) order by x.created_at desc) from public.decisions x),'[]'::jsonb),'chat_unread',unread_count);
+    return jsonb_build_object('ok',true,'user',jsonb_build_object('id',m.id,'name',m.display_name,'role',m.role),'ideas',coalesce((select jsonb_agg(to_jsonb(x) order by x.created_at desc) from public.ideas x),'[]'::jsonb),'gallery',coalesce((select jsonb_agg(to_jsonb(x) order by x.created_at desc) from public.gallery_items x),'[]'::jsonb),'decisions',coalesce((select jsonb_agg(to_jsonb(x) order by x.created_at desc) from public.decisions x),'[]'::jsonb),'chat_unread',unread_count);
   elsif p_action='listChatMessages' then
     select count(*) into unread_count from public.chat_messages cm
     where cm.member_id<>m.id and cm.created_at > coalesce((select cr.last_read_at from public.chat_reads cr where cr.member_id=m.id),'epoch'::timestamptz);
@@ -75,17 +86,18 @@ begin
     delete from public.hub_sessions where member_id=target_id;
     return jsonb_build_object('ok',true);
   elsif p_action='createIdea' then
-    insert into public.ideas(title,description,status,category,author_name) values (p_payload->>'title',coalesce(p_payload->>'description',''),coalesce(p_payload->>'status','ideia'),coalesce(p_payload->>'category','geral'),m.display_name); return jsonb_build_object('ok',true);
+    insert into public.ideas(title,description,status,category,author_name,member_id) values (p_payload->>'title',coalesce(p_payload->>'description',''),coalesce(p_payload->>'status','ideia'),coalesce(p_payload->>'category','geral'),m.display_name,m.id); return jsonb_build_object('ok',true);
   elsif p_action='editIdea' then
     target_id:=(p_payload->>'id')::uuid;
-    select author_name into item_author from public.ideas where id=target_id;
-    if item_author is null or item_author<>m.display_name then return jsonb_build_object('ok',false,'error','Você só pode editar suas próprias ideias'); end if;
+    select author_name,member_id into item_author,item_member_id from public.ideas where id=target_id;
+    if item_author is null or coalesce(item_member_id=m.id,item_author=m.display_name)=false then return jsonb_build_object('ok',false,'error','Você só pode editar suas próprias ideias'); end if;
     if length(trim(coalesce(p_payload->>'title','')))=0 then return jsonb_build_object('ok',false,'error','Título obrigatório'); end if;
     update public.ideas
       set title=trim(p_payload->>'title'),
           description=coalesce(p_payload->>'description',''),
           category=coalesce(p_payload->>'category',category),
           status=coalesce(p_payload->>'status',status),
+          member_id=coalesce(member_id,m.id),
           updated_at=now()
     where id=target_id;
     return jsonb_build_object('ok',true);
