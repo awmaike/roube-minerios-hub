@@ -218,7 +218,7 @@ async function init(){
 function showAuth(){ $('#authView').classList.remove('hidden'); $('#appView').classList.add('hidden') }
 async function enterApp(){
   const data=await api('bootstrap');
-  session={user:data.user}; profile={display_name:data.user.name,role:data.user.role};
+  session={user:data.user}; profile={id:data.user.id,display_name:data.user.name,role:data.user.role};
   state.ideas=data.ideas||[];state.gallery=data.gallery||[];state.decisions=data.decisions||[];state.chatUnread=data.chat_unread||0;
   $('#authView').classList.add('hidden'); $('#appView').classList.remove('hidden');
   renderAll();
@@ -236,6 +236,7 @@ function renderStats(){
   $('#stats').innerHTML=counts.map(([l,n,i])=>`<div class="stat"><small>${i} ${l}</small><strong>${n}</strong></div>`).join('')
 }
 function canEdit(item){return profile?.role==='admin'||authorName(item)===profile?.display_name}
+function ownsIdea(item){return item?.member_id===profile?.id||(!item?.member_id&&authorName(item)===profile?.display_name)}
 function ideaCard(i){
   const raw=(i.description||'').trim();
   const longText=raw.length>180 || raw.split('\n').length>4;
@@ -250,7 +251,7 @@ function renderDecisions(){$('#decisionsList').innerHTML=state.decisions.length?
 function renderRecent(){$('#recentIdeas').innerHTML=state.ideas.slice(0,4).map(i=>`<div class="mini-item"><strong>${esc(i.title)}</strong><small>${labelStatus(i.status)} · ${esc(authorName(i))}</small></div>`).join('')||'<div class="empty">Sem ideias ainda.</div>';$('#recentGallery').innerHTML=state.gallery.slice(0,6).map(g=>`<img src="${esc(g.image_url)}" title="${esc(g.title)} — clique para ampliar" onclick="openImage('${g.id}')">`).join('')||'<div class="empty">Sem imagens.</div>'}
 function go(page){currentPage=page;$$('.page').forEach(p=>p.classList.remove('active'));$(`#page-${page}`).classList.add('active');$$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const meta={overview:['Geral','Visão geral do projeto.'],ideas:['Ideias','Todas as sugestões da equipe em um só lugar.'],map:['Mapa e desenhos','Imagens, mapas e referências.'],ores:['Galeria','Arquivos visuais do projeto.'],mechanics:['Mecânicas','Sistemas e regras do jogo.'],decisions:['Decisões','O que já foi definido pela equipe.'],chat:['Chat','Converse com a equipe sem sair do Hub.'],admin:['Administração','Gerencie os acessos da equipe.']}[page];if(page==='admin'&&profile?.role!=='admin')return go('overview');$('#pageTitle').textContent=meta[0];$('#pageSubtitle').textContent=meta[1];$('#mainAction').style.display=['overview','ideas'].includes(page)?'inline-block':'none';if(page==='admin')loadAdminUsers();if(page==='chat')openChatPage()}
 function openIdea(category='geral'){editingIdeaId=null;$('#ideaForm').reset();$('#ideaCategory').value=category;$('#ideaModalTitle').textContent=category==='mecanica'?'Adicionar mecânica':'Adicionar ideia';$('#ideaModal').showModal()}
-function editIdea(id){const i=state.ideas.find(x=>x.id===id);if(!i||authorName(i)!==profile?.name){toast('Você só pode editar suas próprias ideias');return}editingIdeaId=id;$('#ideaTitle').value=i.title||'';$('#ideaDescription').value=i.description||'';$('#ideaStatus').value=i.status||'ideia';$('#ideaCategory').value=i.category||'geral';$('#ideaModalTitle').textContent=i.category==='mecanica'?'Editar mecânica':'Editar ideia';$('#ideaModal').showModal()}
+function editIdea(id){const i=state.ideas.find(x=>x.id===id);if(!i||!ownsIdea(i)){toast('Você só pode editar suas próprias ideias');return}editingIdeaId=id;$('#ideaTitle').value=i.title||'';$('#ideaDescription').value=i.description||'';$('#ideaStatus').value=i.status||'ideia';$('#ideaCategory').value=i.category||'geral';$('#ideaModalTitle').textContent=i.category==='mecanica'?'Editar mecânica':'Editar ideia';$('#ideaModal').showModal()}
 async function cycleStatus(id,status){const order=['ideia','aprovada','fazendo','finalizada'];const next=order[(Math.max(0,order.indexOf(status))+1)%order.length];try{await api('updateIdeaStatus',{id,status:next});await refresh()}catch(e){toast(e.message)}}
 async function deleteIdea(id){const item=state.ideas.find(x=>x.id===id);if(!item||!canEdit(item)){toast('Você não tem permissão para excluir esta ideia');return}if(!confirm(`Tem certeza que deseja excluir a ideia “${item.title}”?\n\nEssa ação não pode ser desfeita.`))return;try{await api('deleteIdea',{id});toast('Ideia excluída');await refresh()}catch(e){toast(e.message)}}
 async function deleteDecision(id){if(!confirm('Excluir esta decisão?'))return;try{await api('deleteDecision',{id});await refresh()}catch(e){toast(e.message)}}
