@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roube Minérios — Hub do Projeto</title>
+  <meta name="description" content="Hub colaborativo do projeto Roube Minérios" />
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>:root{--bg:#081019;--panel:#101a25;--panel2:#142131;--line:#243347;--text:#edf5ff;--muted:#8fa2b8;--accent:#58d6a9;--accent2:#20b989;--warn:#ffc857;--purple:#a78bfa;--danger:#ff6b6b;--shadow:0 24px 80px rgba(0,0,0,.28)}*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at 80% -10%,#123848 0,transparent 35%),var(--bg);color:var(--text);min-height:100vh}button,input,textarea,select{font:inherit}.hidden{display:none!important}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:250px;background:#0c151f;border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;z-index:5}.brand{display:flex;gap:11px;align-items:center;padding:0 8px 26px}.brand-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#1e8a78);box-shadow:0 0 24px rgba(88,214,169,.18)}.brand strong{font-size:14px;letter-spacing:.06em}.brand small,.user-chip small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.brand.big{justify-content:center;padding-bottom:8px}.brand.big strong{font-size:16px}.nav-item{width:100%;border:0;background:transparent;color:#9fb0c2;padding:12px 13px;border-radius:10px;text-align:left;cursor:pointer;margin:2px 0}.nav-item.active,.nav-item:hover{background:#142331;color:#fff}.sidebar-bottom{margin-top:auto}.user-chip{display:flex;align-items:center;gap:10px;padding:12px 8px;margin-bottom:8px}.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#1f6e60;font-weight:800}.main{margin-left:250px;padding:28px 34px 50px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.topbar h2{margin:0 0 5px;font-size:24px}.topbar p{margin:0;color:var(--muted);font-size:13px}.top-actions{display:flex;gap:10px}.primary,.ghost,.filters button,.link{border:0;border-radius:10px;cursor:pointer}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#042018;font-weight:800;padding:11px 16px}.ghost{background:#142130;border:1px solid var(--line);color:#cfdeed;padding:10px 14px}.full{width:100%}.link{background:transparent;color:var(--accent);padding:4px}.page{display:none}.page.active{display:block}.card{background:linear-gradient(180deg,rgba(20,33,49,.92),rgba(15,26,37,.92));border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.hero{display:flex;justify-content:space-between;align-items:center;min-height:190px;overflow:hidden}.hero h1{font-size:36px;margin:8px 0}.hero p{color:var(--muted);max-width:620px}.eyebrow{font-size:11px;letter-spacing:.14em;color:var(--accent);font-weight:800}.hero-art{font-size:74px;position:relative;opacity:.95;margin-right:6%}.hero-art span{font-size:35px;position:absolute;right:-20px;bottom:4px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}.stat{background:#101b27;border:1px solid var(--line);border-radius:14px;padding:18px}.stat strong{display:block;font-size:28px}.stat small{color:var(--muted)}.grid.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card-head,.section-intro{display:flex;justify-content:space-between;align-items:center}.card-head h3,.section-intro h3{margin:0}.section-intro{margin-bottom:18px}.section-intro p{margin:6px 0 0;color:var(--muted)}.stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}.mini-item{padding:12px;border:1px solid var(--line);border-radius:11px;background:#0e1822}.mini-item strong{display:block}.mini-item small{color:var(--muted)}.gallery-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.gallery-mini img{width:100%;height:110px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.toolbar{margin-bottom:18px}.filters{display:flex;gap:7px;flex-wrap:wrap}.filters button{background:#101b27;color:var(--muted);border:1px solid var(--line);padding:8px 12px}.filters button.active{background:#1a3a35;color:#dffff3;border-color:#2b7f6c}.cards-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start;grid-auto-rows:max-content}.idea-card{background:#101b27;border:1px solid var(--line);border-radius:15px;padding:16px;display:flex;flex-direction:column;min-height:0;height:auto;align-self:start}.idea-card h4{margin:10px 0 8px;font-size:17px}.idea-card p{color:var(--muted);font-size:13px;line-height:1.55}.idea-description{color:var(--muted);font-size:13px;line-height:1.65;position:relative}.idea-description.collapsed{max-height:105px;overflow:hidden}.idea-description.collapsed:after{content:'';position:absolute;left:0;right:0;bottom:0;height:42px;background:linear-gradient(transparent,#101b27)}.idea-readmore{align-self:flex-start;margin-top:8px;border:0;background:transparent;color:var(--accent);font-size:12px;font-weight:700;padding:2px 0;cursor:pointer}.idea-readmore:hover{text-decoration:underline}.idea-description p{margin:0 0 12px}.idea-description p:last-child{margin-bottom:0}.idea-description ul{margin:4px 0 14px 20px;padding:0}.idea-description li{margin:4px 0;padding-left:2px}.idea-description br{content:''}.idea-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:12px}.badge{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;background:#1d2b3b;color:#bdd0e4}.badge.ideia{background:#24334a;color:#b9d8ff}.badge.aprovada,.badge.concluido{background:#15382e;color:#70e8bd}.badge.fazendo{background:#3e3318;color:#ffd66b}.badge.finalizada{background:#28234a;color:#bcaaff}.badge.descartada{background:#3a2428;color:#ff9ca6}.card-actions{display:flex;gap:6px}.icon-action{background:transparent;border:0;color:#9fb1c4;cursor:pointer;padding:5px}.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.gallery-card{background:#101b27;border:1px solid var(--line);border-radius:15px;overflow:hidden}.gallery-card img{width:100%;height:230px;object-fit:cover;display:block;background:#0a1119;cursor:zoom-in}.gallery-mini img{cursor:zoom-in}.gallery-actions{display:flex;justify-content:flex-end;margin-top:10px}.image-viewer{width:min(1100px,95vw);max-width:none}.image-viewer .modal-card{padding:12px}.image-viewer img{width:100%;max-height:82vh;object-fit:contain;border-radius:12px;background:#05090d}.image-viewer .modal-head{margin-bottom:10px}.gallery-card .body{padding:14px}.gallery-card h4{margin:0 0 7px}.gallery-card p{color:var(--muted);font-size:12px;line-height:1.45;min-height:35px}.empty{grid-column:1/-1;border:1px dashed #2b3c51;border-radius:14px;padding:38px;text-align:center;color:var(--muted)}.auth-shell{min-height:100vh;display:grid;place-items:center;padding:20px}.auth-card{width:min(440px,100%);background:#0e1924;border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--shadow)}.auth-card h1{font-size:28px;margin:20px 0 8px;text-align:center}.auth-card>p{text-align:center;color:var(--muted);line-height:1.5}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#09121b;padding:4px;border-radius:11px;margin:22px 0}.auth-tabs button{border:0;background:transparent;color:var(--muted);padding:10px;border-radius:8px;cursor:pointer}.auth-tabs button.active{background:#172535;color:#fff}.field{margin-bottom:14px}.field label{display:block;font-size:12px;color:#b9c7d7;margin:0 0 7px}.field input,.field textarea,.field select,.comment-form input{width:100%;background:#09131d;border:1px solid #26374b;color:#fff;border-radius:10px;padding:11px 12px;outline:none}.field textarea{resize:vertical}.field input:focus,.field textarea:focus,.field select:focus,.comment-form input:focus{border-color:#3b9c85}.muted{display:block;text-align:center;color:var(--muted);margin-top:14px}.modal{border:0;background:transparent;padding:0;width:min(560px,92vw);color:var(--text)}.modal::backdrop{background:rgba(2,7,12,.76);backdrop-filter:blur(4px)}.modal-card{background:#0f1a25;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px}.modal-head h3{margin:3px 0 0}.modal-head small{color:var(--accent);font-weight:800}.icon-btn{border:0;background:#172534;color:#b9c8d6;width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:20px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.comments-list{max-height:360px;overflow:auto;display:flex;flex-direction:column;gap:10px}.comment{padding:11px;background:#0a141d;border:1px solid var(--line);border-radius:10px}.comment-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.comment strong{font-size:12px}.comment p{font-size:13px;color:#d7e1ec;margin:5px 0 0}.comment-delete{border:0;background:transparent;color:#8798aa;cursor:pointer;padding:2px 4px;font-size:13px;line-height:1;border-radius:6px}.comment-delete:hover{color:#ff8d8d;background:#2b1a1d}.comment-form{display:flex;gap:8px;margin-top:16px}.toast{position:fixed;right:22px;bottom:22px;z-index:50;background:#162635;border:1px solid #2b4155;color:#fff;padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:none}@media(max-width:1050px){.cards-grid,.gallery-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.sidebar{position:static;width:100%;height:auto}.sidebar nav{display:flex;overflow:auto}.nav-item{white-space:nowrap;width:auto}.sidebar-bottom{display:none}.main{margin:0;padding:20px}.topbar{align-items:flex-start;gap:15px}.top-actions{flex-wrap:wrap;justify-content:flex-end}.grid.two,.cards-grid,.gallery-grid{grid-template-columns:1fr}.hero-art{display:none}.stats{grid-template-columns:1fr 1fr}.gallery-mini img{height:90px}}
+
+
+.nav-item{position:relative}.nav-badge{position:absolute;right:10px;top:7px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#ff5d73;color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #0c151f}.chat-shell{height:calc(100vh - 125px);min-height:520px;display:flex;flex-direction:column;padding:0;overflow:hidden}.chat-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);background:#101b27}.chat-head h3{margin:0 0 4px}.chat-head small{color:var(--muted)}.chat-status{display:flex;align-items:center;gap:7px;color:#8fa2b8;font-size:12px}.chat-status::before{content:'';width:8px;height:8px;border-radius:50%;background:#58d6a9;box-shadow:0 0 10px rgba(88,214,169,.65)}.chat-messages{flex:1;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:11px;scroll-behavior:smooth}.chat-empty{margin:auto;color:var(--muted);text-align:center}.chat-row{display:flex;gap:10px;align-items:flex-end}.chat-row.mine{justify-content:flex-end}.chat-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#1d3345;color:#dce9f5;font-size:12px;font-weight:800;flex:0 0 auto}.chat-row.mine .chat-avatar{display:none}.chat-bubble-wrap{max-width:min(680px,78%)}.chat-author{font-size:11px;color:var(--muted);margin:0 0 5px 6px}.chat-bubble{background:#142331;border:1px solid #263b50;border-radius:15px 15px 15px 4px;padding:10px 12px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}.chat-row.mine .chat-bubble{background:#17382f;border-color:#2e6f60;border-radius:15px 15px 4px 15px}.chat-meta{display:flex;align-items:center;gap:8px;margin-top:4px;color:#75889c;font-size:10px}.chat-row.mine .chat-meta{justify-content:flex-end}.chat-delete{border:0;background:transparent;color:#75889c;cursor:pointer;padding:0;font-size:11px}.chat-delete:hover{color:#ff8b98}.chat-form{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);background:#0d1721}.chat-form textarea{flex:1;resize:none;min-height:46px;max-height:130px;background:#09131d;border:1px solid #26374b;color:#fff;border-radius:12px;padding:12px;outline:none}.chat-form textarea:focus{border-color:#3b9c85}.chat-form .primary{align-self:flex-end;min-height:46px}.chat-unread-banner{display:none;padding:8px 14px;text-align:center;background:#382c15;color:#ffd66b;font-size:12px;border-bottom:1px solid #59451f}.chat-unread-banner.show{display:block}@media(max-width:760px){.nav-badge{right:4px;top:2px}.chat-shell{height:70vh;min-height:480px}.chat-bubble-wrap{max-width:86%}.chat-form{padding:10px}}
+
+.chat-attach{width:46px;height:46px;flex:0 0 46px;align-self:flex-end;border:1px solid var(--line);background:#142130;color:#dbe8f5;border-radius:12px;cursor:pointer;font-size:20px}.chat-attach:hover{border-color:#3b9c85;color:#fff}.chat-composer{flex:1;display:flex;flex-direction:column;gap:8px}.chat-image-preview{display:none;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);background:#101b27;border-radius:11px}.chat-image-preview.show{display:flex}.chat-image-preview img{width:72px;height:54px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}.chat-image-preview span{flex:1;color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-image{display:block;max-width:min(420px,100%);max-height:320px;border-radius:12px;margin-bottom:8px;cursor:zoom-in;object-fit:contain;background:#09131d}.chat-bubble:has(.chat-image){padding:7px}.chat-edit{border:0;background:transparent;color:#75889c;cursor:pointer;padding:0;font-size:11px}.chat-edit:hover{color:#8fe7ca}.chat-edited{opacity:.8}.chat-uploading{opacity:.65;pointer-events:none}
+</style>
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+  <section id="authView" class="auth-shell">
+    <div class="auth-card">
+      <div class="brand big"><span class="brand-icon">⛏</span><div><strong>ROUBE MINÉRIOS</strong><small>Hub do projeto</small></div></div>
+      <h1>Organizem o jogo em um só lugar.</h1>
+      <p>Ideias, mapas, prints, minérios e decisões sincronizados entre vocês.</p>
+      <form id="authForm" style="margin-top:22px">
+        <div class="field"><label>Usuário</label><input id="username" autocomplete="username" placeholder="Seu usuário" required></div>
+        <div class="field"><label>Senha</label><input id="password" type="password" autocomplete="current-password" placeholder="Sua senha" required></div>
+        <button class="primary full" id="authSubmit" type="submit">Entrar</button>
+      </form>
+      <small class="muted">Acesso fechado para os 3 membros do projeto.</small>
+    </div>
+  </section>
+
+  <div id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">⛏</span><div><strong>ROUBE MINÉRIOS</strong><small>Hub do projeto</small></div></div>
+      <nav id="nav">
+        <button class="nav-item active" data-page="overview">🏠 <span>Geral</span></button>
+        <button class="nav-item" data-page="ideas">💡 <span>Ideias</span></button>
+        <button class="nav-item" data-page="map">🗺 <span>Mapa e desenhos</span></button>
+        <button class="nav-item" data-page="ores">🖼 <span>Galeria</span></button>
+        <button class="nav-item" id="chatNav" data-page="chat">💬 <span>Chat</span><span id="chatBadge" class="nav-badge hidden">0</span></button>
+        <button class="nav-item hidden" id="adminNav" data-page="admin">🛡 <span>Administração</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="user-chip"><div class="avatar" id="avatar">M</div><div><strong id="userName">Usuário</strong><small id="userEmail"></small></div></div>
+        <button class="ghost full" id="logoutBtn">Sair</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><h2 id="pageTitle">Geral</h2><p id="pageSubtitle">Visão geral do projeto.</p></div>
+        <div class="top-actions"><button class="ghost" id="refreshBtn">↻ Atualizar</button><button class="primary" id="mainAction">+ Nova ideia</button></div>
+      </header>
+
+      <section id="page-overview" class="page active">
+        <div class="hero card">
+          <div><span class="eyebrow">PROJETO ROBLOX</span><h1>Roube Minérios</h1><p>Da primeira pedra ao sistema completo de mineração, base, processamento e roubo.</p></div>
+          <div class="hero-art">⛏<span>💎</span></div>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="grid two">
+          <div class="card"><div class="card-head"><h3>Ideias recentes</h3><button class="link" data-go="ideas">Ver todas</button></div><div id="recentIdeas" class="stack"></div></div>
+          <div class="card"><div class="card-head"><h3>Galeria recente</h3><button class="link" data-go="map">Abrir galeria</button></div><div id="recentGallery" class="gallery-mini"></div></div>
+        </div>
+      </section>
+
+      <section id="page-ideas" class="page">
+        <div class="toolbar"><div class="filters" id="ideaFilters"><button class="active" data-filter="all">Todas</button><button data-filter="ideia">Ideia</button><button data-filter="aprovada">Aprovada</button><button data-filter="fazendo">Fazendo</button><button data-filter="finalizada">Finalizada</button></div></div>
+        <div id="ideasBoard" class="cards-grid"></div>
+      </section>
+
+      <section id="page-map" class="page">
+        <div class="section-intro"><div><h3>Mapa & desenhos</h3><p>Prints do Roblox Studio, rascunhos de biomas e referências visuais.</p></div><button class="primary" data-upload-category="mapa">+ Enviar imagem</button></div>
+        <div id="mapGallery" class="gallery-grid"></div>
+      </section>
+
+      <section id="page-ores" class="page">
+        <div class="section-intro"><div><h3>Galeria</h3><p>Arquivos visuais do projeto, referências e imagens enviadas pela equipe.</p></div><button class="primary" data-upload-category="minerio">+ Enviar imagem</button></div>
+        <div id="oreGallery" class="gallery-grid"></div>
+      </section>
+
+      <section id="page-mechanics" class="page">
+        <div class="section-intro"><div><h3>Mecânicas</h3><p>Registre sistemas do jogo como mineração, bases, peso, pureza e roubo.</p></div><button class="primary" data-category="mecanica">+ Nova mecânica</button></div>
+        <div id="mechanicsList" class="cards-grid"></div>
+      </section>
+
+      <section id="page-decisions" class="page">
+        <div class="section-intro"><div><h3>Decisões do projeto</h3><p>O que já foi definido para não se perder no Discord.</p></div><button class="primary" id="newDecisionBtn">+ Nova decisão</button></div>
+        <div id="decisionsList" class="cards-grid"></div>
+      </section>
+
+      <section id="page-chat" class="page">
+        <div class="card chat-shell">
+          <div class="chat-head"><div><h3>Chat da equipe</h3><small>Conversa entre os membros do Roube Minérios</small></div><div class="chat-status">Atualizando ao vivo</div></div>
+          <div id="chatUnreadBanner" class="chat-unread-banner">Novas mensagens recebidas</div>
+          <div id="chatMessages" class="chat-messages"><div class="chat-empty">Carregando conversa...</div></div>
+          <form id="chatForm" class="chat-form">
+            <input id="chatImageInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden">
+            <button class="chat-attach" id="chatAttachBtn" type="button" title="Enviar imagem">📎</button>
+            <div class="chat-composer">
+              <div id="chatImagePreview" class="chat-image-preview"><img id="chatImagePreviewImg" alt="Prévia"><span id="chatImagePreviewName"></span><button id="chatImageRemove" class="icon-btn" type="button" title="Remover imagem">×</button></div>
+              <textarea id="chatInput" maxlength="1200" rows="1" placeholder="Escreva uma mensagem... (Enter envia, Shift+Enter quebra linha)"></textarea>
+            </div>
+            <button class="primary" id="chatSendBtn" type="submit">Enviar</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="page-admin" class="page">
+        <div class="section-intro"><div><h3>Painel administrativo</h3><p>Gerencie os acessos da equipe. Esta área aparece somente para administradores.</p></div><button class="ghost" id="adminRefresh">↻ Atualizar usuários</button></div>
+        <div class="card"><div id="adminUsers" class="stack"><div class="empty">Carregando usuários...</div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="ideaModal" class="modal">
+    <form id="ideaForm" class="modal-card">
+      <div class="modal-head"><div><small>NOVO ITEM</small><h3 id="ideaModalTitle">Adicionar ideia</h3></div><button class="icon-btn" value="cancel" type="button" data-close="ideaModal">×</button></div>
+      <input type="hidden" id="ideaCategory" value="geral">
+      <div class="field"><label>Título</label><input id="ideaTitle" maxlength="100" required placeholder="Ex.: Minério Radioativo"></div>
+      <div class="field"><label>Descrição</label><textarea id="ideaDescription" rows="5" maxlength="1200" placeholder="Explique a ideia..."></textarea></div>
+      <div class="field"><label>Status</label><select id="ideaStatus"><option value="ideia">Ideia</option><option value="aprovada">Aprovada</option><option value="fazendo">Fazendo</option><option value="finalizada">Finalizada</option><option value="descartada">Descartada</option></select></div>
+      <div class="modal-actions"><button class="ghost" type="button" data-close="ideaModal">Cancelar</button><button class="primary" id="ideaSaveBtn" type="button">Salvar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="uploadModal" class="modal">
+    <form method="dialog" id="uploadForm" class="modal-card">
+      <div class="modal-head"><div><small>GALERIA</small><h3>Enviar imagem</h3></div><button class="icon-btn" type="button" data-close="uploadModal">×</button></div>
+      <input type="hidden" id="uploadCategory" value="mapa">
+      <div class="field"><label>Título</label><input id="uploadTitle" maxlength="100" required placeholder="Ex.: Layout do mapa v2"></div>
+      <div class="field"><label>Observação</label><textarea id="uploadDescription" rows="3" maxlength="600" placeholder="O que devemos observar nesta imagem?"></textarea></div>
+      <div class="field"><label>Imagem</label><input id="uploadFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" required></div>
+      <div class="modal-actions"><button class="ghost" type="button" data-close="uploadModal">Cancelar</button><button class="primary" type="submit">Enviar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="decisionModal" class="modal">
+    <form method="dialog" id="decisionForm" class="modal-card">
+      <div class="modal-head"><div><small>DECISÃO</small><h3>Registrar decisão</h3></div><button class="icon-btn" type="button" data-close="decisionModal">×</button></div>
+      <div class="field"><label>Título</label><input id="decisionTitle" required maxlength="100" placeholder="Ex.: Bases serão Base1 até Base6"></div>
+      <div class="field"><label>Detalhes</label><textarea id="decisionDetails" rows="4" maxlength="900" placeholder="Descreva o que foi definido..."></textarea></div>
+      <div class="field"><label>Status</label><select id="decisionStatus"><option value="discussao">Em discussão</option><option value="aprovado">Aprovado</option><option value="fazendo">Fazendo</option><option value="concluido">Concluído</option></select></div>
+      <div class="modal-actions"><button class="ghost" type="button" data-close="decisionModal">Cancelar</button><button class="primary" type="submit">Salvar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="commentsModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head"><div><small>DISCUSSÃO</small><h3 id="commentsTitle">Comentários</h3></div><button class="icon-btn" type="button" data-close="commentsModal">×</button></div>
+      <div id="commentsList" class="comments-list"></div>
+      <form id="commentForm" class="comment-form"><input id="commentBody" maxlength="500" placeholder="Escreva um comentário..." required><button class="primary" type="submit">Enviar</button></form>
+    </div>
+  </dialog>
+
+
+  <dialog id="imageModal" class="modal image-viewer">
+    <div class="modal-card">
+      <div class="modal-head"><div><small>VISUALIZAÇÃO</small><h3 id="imageModalTitle">Imagem</h3></div><button class="icon-btn" type="button" data-close="imageModal">×</button></div>
+      <img id="imageModalImg" alt="Imagem ampliada">
+    </div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>const SUPABASE_URL = 'https://bjypwenzgusuojaewffq.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_TZIOpJtNTsU6CUU7haK0EA_6SWu-t1n';
+
+let hubToken = localStorage.getItem('roube_minerios_token') || '';
+let session = null, profile = null, currentPage = 'overview', ideaFilter = 'all', currentIdeaForComments = null, editingIdeaId = null;
+let chatTimer = null, chatLoading = false, lastChatSignature = '';
+const state = { ideas: [], gallery: [], decisions: [], chat: [], chatUnread: 0 };
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
+function esc(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function date(v){return new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'short'}).format(new Date(v))}
+function labelStatus(v){return ({ideia:'Ideia',aprovada:'Aprovada',fazendo:'Fazendo',finalizada:'Finalizada',descartada:'Descartada',discussao:'Em discussão',aprovado:'Aprovado',concluido:'Concluído'})[v]||v}
+function authorName(item){return item?.author_name || 'Equipe'}
+function formatIdeaText(v=''){
+  const lines=String(v).replace(/\r/g,'').split('\n');
+  let html='', para=[], inList=false;
+  const flushPara=()=>{if(para.length){html+=`<p>${para.map(esc).join('<br>')}</p>`;para=[]}};
+  const closeList=()=>{if(inList){html+='</ul>';inList=false}};
+  for(const raw of lines){
+    const line=raw.trimEnd();
+    const bullet=line.match(/^\s*[*-]\s+(.+)$/);
+    if(bullet){flushPara();if(!inList){html+='<ul>';inList=true}html+=`<li>${esc(bullet[1])}</li>`;continue}
+    if(!line.trim()){flushPara();closeList();continue}
+    closeList();para.push(line);
+  }
+  flushPara();closeList();
+  return html||'<p>Sem descrição.</p>';
+}
+
+async function postRpc(name, body){
+  const r=await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`},body:JSON.stringify(body)});
+  if(!r.ok) throw new Error('Falha de conexão');
+  return await r.json();
+}
+async function api(action,payload={}){
+  const out=await postRpc('hub_api',{p_token:hubToken,p_action:action,p_payload:payload});
+  if(!out?.ok){
+    if(out?.error==='Sessão inválida'){localStorage.removeItem('roube_minerios_token');hubToken='';session=null;showAuth();}
+    throw new Error(out?.error||'Erro no Hub');
+  }
+  return out;
+}
+
+async function init(){
+  if(hubToken){try{await enterApp();return}catch(e){localStorage.removeItem('roube_minerios_token');hubToken=''}}
+  showAuth();
+}
+function showAuth(){ $('#authView').classList.remove('hidden'); $('#appView').classList.add('hidden') }
+async function enterApp(){
+  const data=await api('bootstrap');
+  session={user:data.user}; profile={id:data.user.id,display_name:data.user.name,role:data.user.role};
+  state.ideas=data.ideas||[];state.gallery=data.gallery||[];state.decisions=data.decisions||[];state.chatUnread=data.chat_unread||0;
+  $('#authView').classList.add('hidden'); $('#appView').classList.remove('hidden');
+  renderAll();
+  $('#userName').textContent=profile.display_name;
+  $('#userEmail').textContent=profile.role==='admin'?'Administrador':'Membro';
+  $('#avatar').textContent=(profile.display_name[0]||'U').toUpperCase();
+  $('#adminNav').classList.toggle('hidden',profile.role!=='admin');
+  updateChatBadge();
+  startChatPolling();
+}
+async function loadAll(){const data=await api('bootstrap');state.ideas=data.ideas||[];state.gallery=data.gallery||[];state.decisions=data.decisions||[];state.chatUnread=data.chat_unread||0;updateChatBadge();}
+function renderAll(){renderStats();renderIdeas();renderGallery();renderMechanics();renderDecisions();renderRecent()}
+function renderStats(){
+  const counts=[['Ideias',state.ideas.filter(i=>i.category!=='mecanica').length,'💡'],['Em andamento',state.ideas.filter(i=>i.status==='fazendo').length,'⚒'],['Imagens',state.gallery.length,'🖼'],['Decisões',state.decisions.length,'✓']];
+  $('#stats').innerHTML=counts.map(([l,n,i])=>`<div class="stat"><small>${i} ${l}</small><strong>${n}</strong></div>`).join('')
+}
+function canEdit(item){return profile?.role==='admin'||authorName(item)===profile?.display_name}
+function ownsIdea(item){return item?.member_id===profile?.id||(!item?.member_id&&authorName(item)===profile?.display_name)}
+function ideaCard(i){
+  const raw=(i.description||'').trim();
+  const longText=raw.length>180 || raw.split('\n').length>4;
+  return `<article class="idea-card"><div><span class="badge ${i.status}">${labelStatus(i.status)}</span></div><h4>${esc(i.title)}</h4><div id="idea-desc-${i.id}" class="idea-description${longText?' collapsed':''}">${formatIdeaText(raw)}</div>${longText?`<button id="idea-more-${i.id}" class="idea-readmore" onclick="toggleIdeaText('${i.id}')">Ler mais</button>`:''}<div class="idea-meta"><small>${esc(authorName(i))} · ${date(i.created_at)}</small><div class="card-actions"><button class="icon-action" onclick="openComments('${i.id}')" title="Comentários">💬</button>${canEdit(i)?`<button class="icon-action" onclick="editIdea('${i.id}')" title="Editar ideia">✏️</button><button class="icon-action" onclick="cycleStatus('${i.id}','${i.status}')" title="Avançar status">↻</button><button class="icon-action" onclick="deleteIdea('${i.id}')" title="Excluir esta ideia">🗑</button>`:''}</div></div></article>`
+}
+function toggleIdeaText(id){const d=document.getElementById(`idea-desc-${id}`),b=document.getElementById(`idea-more-${id}`);if(!d||!b)return;const opening=d.classList.contains('collapsed');d.classList.toggle('collapsed');b.textContent=opening?'Ler menos':'Ler mais'}
+function renderIdeas(){const list=state.ideas.filter(i=>i.category!=='mecanica'&&(ideaFilter==='all'||i.status===ideaFilter));$('#ideasBoard').innerHTML=list.length?list.map(ideaCard).join(''):'<div class="empty">Nenhuma ideia por aqui ainda.</div>'}
+function renderMechanics(){const list=state.ideas.filter(i=>i.category==='mecanica');$('#mechanicsList').innerHTML=list.length?list.map(ideaCard).join(''):'<div class="empty">Cadastre a primeira mecânica do jogo.</div>'}
+function galleryCard(g){return `<article class="gallery-card"><img src="${esc(g.image_url)}" alt="${esc(g.title)}" onclick="openImage('${g.id}')" title="Clique para ampliar"><div class="body"><span class="badge">${g.category==='minerio'?'Minério':'Mapa'}</span><h4>${esc(g.title)}</h4><p>${esc(g.description||'')}</p><small>${esc(authorName(g))} · ${date(g.created_at)}</small>${canEdit(g)?`<div class="gallery-actions"><button class="ghost" onclick="deleteGallery('${g.id}')">🗑 Excluir imagem</button></div>`:''}</div></article>`}
+function renderGallery(){const map=state.gallery.filter(g=>g.category==='mapa'),all=state.gallery;$('#mapGallery').innerHTML=map.length?map.map(galleryCard).join(''):'<div class="empty">Envie o primeiro print ou desenho do mapa.</div>';$('#oreGallery').innerHTML=all.length?all.map(galleryCard).join(''):'<div class="empty">Envie a primeira imagem para a galeria.</div>'}
+function renderDecisions(){$('#decisionsList').innerHTML=state.decisions.length?state.decisions.map(d=>`<article class="idea-card"><span class="badge ${d.status}">${labelStatus(d.status)}</span><h4>${esc(d.title)}</h4><p>${esc(d.details||'')}</p><div class="idea-meta"><small>${esc(authorName(d))} · ${date(d.created_at)}</small>${canEdit(d)?`<button class="icon-action" onclick="deleteDecision('${d.id}')">🗑</button>`:''}</div></article>`).join(''):'<div class="empty">Registre decisões que já foram aprovadas pelo grupo.</div>'}
+function renderRecent(){$('#recentIdeas').innerHTML=state.ideas.slice(0,4).map(i=>`<div class="mini-item"><strong>${esc(i.title)}</strong><small>${labelStatus(i.status)} · ${esc(authorName(i))}</small></div>`).join('')||'<div class="empty">Sem ideias ainda.</div>';$('#recentGallery').innerHTML=state.gallery.slice(0,6).map(g=>`<img src="${esc(g.image_url)}" title="${esc(g.title)} — clique para ampliar" onclick="openImage('${g.id}')">`).join('')||'<div class="empty">Sem imagens.</div>'}
+function go(page){currentPage=page;$$('.page').forEach(p=>p.classList.remove('active'));$(`#page-${page}`).classList.add('active');$$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const meta={overview:['Geral','Visão geral do projeto.'],ideas:['Ideias','Todas as sugestões da equipe em um só lugar.'],map:['Mapa e desenhos','Imagens, mapas e referências.'],ores:['Galeria','Arquivos visuais do projeto.'],mechanics:['Mecânicas','Sistemas e regras do jogo.'],decisions:['Decisões','O que já foi definido pela equipe.'],chat:['Chat','Converse com a equipe sem sair do Hub.'],admin:['Administração','Gerencie os acessos da equipe.']}[page];if(page==='admin'&&profile?.role!=='admin')return go('overview');$('#pageTitle').textContent=meta[0];$('#pageSubtitle').textContent=meta[1];$('#mainAction').style.display=['overview','ideas'].includes(page)?'inline-block':'none';if(page==='admin')loadAdminUsers();if(page==='chat')openChatPage()}
+function openIdea(category='geral'){editingIdeaId=null;$('#ideaForm').reset();$('#ideaCategory').value=category;$('#ideaModalTitle').textContent=category==='mecanica'?'Adicionar mecânica':'Adicionar ideia';$('#ideaModal').showModal()}
+function editIdea(id){const i=state.ideas.find(x=>x.id===id);if(!i||!ownsIdea(i)){toast('Você só pode editar suas próprias ideias');return}editingIdeaId=id;$('#ideaTitle').value=i.title||'';$('#ideaDescription').value=i.description||'';$('#ideaStatus').value=i.status||'ideia';$('#ideaCategory').value=i.category||'geral';$('#ideaModalTitle').textContent=i.category==='mecanica'?'Editar mecânica':'Editar ideia';$('#ideaModal').showModal()}
+async function cycleStatus(id,status){const order=['ideia','aprovada','fazendo','finalizada'];const next=order[(Math.max(0,order.indexOf(status))+1)%order.length];try{await api('updateIdeaStatus',{id,status:next});await refresh()}catch(e){toast(e.message)}}
+async function deleteIdea(id){const item=state.ideas.find(x=>x.id===id);if(!item||!canEdit(item)){toast('Você não tem permissão para excluir esta ideia');return}if(!confirm(`Tem certeza que deseja excluir a ideia “${item.title}”?\n\nEssa ação não pode ser desfeita.`))return;try{await api('deleteIdea',{id});toast('Ideia excluída');await refresh()}catch(e){toast(e.message)}}
+async function deleteDecision(id){if(!confirm('Excluir esta decisão?'))return;try{await api('deleteDecision',{id});await refresh()}catch(e){toast(e.message)}}
+async function deleteGallery(id){if(!confirm('Excluir esta imagem?'))return;try{await api('deleteGallery',{id});toast('Imagem excluída');await refresh()}catch(e){toast(e.message)}}
+function openImage(id){const g=state.gallery.find(x=>x.id===id);if(!g)return;$('#imageModalTitle').textContent=g.title||'Imagem';$('#imageModalImg').src=g.image_url;$('#imageModalImg').alt=g.title||'Imagem ampliada';$('#imageModal').showModal()}
+async function refresh(){await loadAll();renderAll();toast('Atualizado')}
+window.cycleStatus=cycleStatus;window.toggleIdeaText=toggleIdeaText;window.editIdea=editIdea;window.deleteIdea=deleteIdea;window.deleteDecision=deleteDecision;window.deleteGallery=deleteGallery;window.openImage=openImage;
+window.openComments=async function(id){currentIdeaForComments=id;const idea=state.ideas.find(i=>i.id===id);$('#commentsTitle').textContent=idea?.title||'Comentários';$('#commentsModal').showModal();await loadComments()}
+
+function updateChatBadge(){
+  const n=Math.max(0,Number(state.chatUnread||0));
+  const badge=$('#chatBadge');
+  badge.textContent=n>99?'99+':String(n);
+  badge.classList.toggle('hidden',n===0);
+}
+function chatTime(v){return new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit'}).format(new Date(v))}
+function renderChat(keepPosition=false){
+  const box=$('#chatMessages');
+  const wasNearBottom=box.scrollHeight-box.scrollTop-box.clientHeight<100;
+  const rows=state.chat||[];
+  box.innerHTML=rows.length?rows.map(m=>{
+    const mine=authorName(m)===profile?.display_name;
+    const canDelete=mine||profile?.role==='admin';
+    const image=m.image_url?`<img class="chat-image" src="${esc(m.image_url)}" alt="Imagem enviada no chat" onclick="openChatImage('${esc(m.image_url)}')">`:'';
+    const text=m.body?`<div>${esc(m.body)}</div>`:'';
+    const edited=m.edited_at?`<span class="chat-edited">· editada</span>`:'';
+    return `<div class="chat-row ${mine?'mine':''}"><div class="chat-avatar">${esc((authorName(m)[0]||'?').toUpperCase())}</div><div class="chat-bubble-wrap"><div class="chat-author">${mine?'Você':esc(authorName(m))}</div><div class="chat-bubble">${image}${text}</div><div class="chat-meta"><span>${chatTime(m.created_at)}</span>${edited}${mine&&m.body?`<button class="chat-edit" onclick="editChatMessage('${m.id}')">Editar</button>`:''}${canDelete?`<button class="chat-delete" onclick="deleteChatMessage('${m.id}')">Excluir</button>`:''}</div></div></div>`
+  }).join(''):'<div class="chat-empty">Nenhuma mensagem ainda. Manda a primeira 👋</div>';
+  if(!keepPosition||wasNearBottom)requestAnimationFrame(()=>{box.scrollTop=box.scrollHeight});
+}
+async function loadChat(silent=true){
+  if(chatLoading||!hubToken)return;
+  chatLoading=true;
+  try{
+    const data=await api('listChatMessages');
+    const msgs=data.messages||[];
+    const signature=msgs.length?`${msgs.length}:${msgs[msgs.length-1].id}`:'0';
+    const changed=signature!==lastChatSignature;
+    state.chat=msgs;
+    state.chatUnread=data.unread||0;
+    updateChatBadge();
+    if(currentPage==='chat'){
+      if(changed)renderChat(true);
+      if(state.chatUnread>0){
+        $('#chatUnreadBanner').classList.add('show');
+        await api('markChatRead');
+        state.chatUnread=0;updateChatBadge();
+        setTimeout(()=>$('#chatUnreadBanner').classList.remove('show'),1200);
+      }
+    }
+    lastChatSignature=signature;
+  }catch(e){if(!silent)toast(e.message)}finally{chatLoading=false}
+}
+async function openChatPage(){
+  await loadChat(false);
+  try{await api('markChatRead');state.chatUnread=0;updateChatBadge()}catch{}
+  renderChat(false);
+  setTimeout(()=>$('#chatInput')?.focus(),50);
+}
+function startChatPolling(){
+  if(chatTimer)clearInterval(chatTimer);
+  loadChat(true);
+  chatTimer=setInterval(()=>loadChat(true),3000);
+}
+window.deleteChatMessage=async function(id){if(!confirm('Excluir esta mensagem?'))return;try{await api('deleteChatMessage',{id});await loadChat(false);lastChatSignature='';await loadChat(false);toast('Mensagem excluída')}catch(e){toast(e.message)}}
+window.editChatMessage=async function(id){const m=(state.chat||[]).find(x=>x.id===id);if(!m||authorName(m)!==profile?.display_name)return;const body=prompt('Editar mensagem:',m.body||'');if(body===null)return;const text=body.trim();if(!text)return toast('A mensagem não pode ficar vazia');try{await api('editChatMessage',{id,body:text});lastChatSignature='';await loadChat(false);toast('Mensagem editada')}catch(e){toast(e.message)}}
+window.openChatImage=function(url){$('#imageModalTitle').textContent='Imagem do chat';$('#imageModalImg').src=url;$('#imageModalImg').alt='Imagem ampliada do chat';$('#imageModal').showModal()}
+let chatPendingImage=null;
+function clearChatImage(){chatPendingImage=null;$('#chatImageInput').value='';$('#chatImagePreview').classList.remove('show');$('#chatImagePreviewImg').src='';$('#chatImagePreviewName').textContent=''}
+async function uploadChatImage(file){const fd=new FormData();fd.append('file',file);const r=await fetch('https://bjypwenzgusuojaewffq.supabase.co/functions/v1/chat-upload',{method:'POST',headers:{'x-hub-token':hubToken},body:fd});const out=await r.json().catch(()=>({}));if(!r.ok||!out.ok)throw new Error(out.error||'Não foi possível enviar a imagem');return out.url}
+
+async function loadAdminUsers(){
+  if(profile?.role!=='admin')return;
+  try{
+    const data=await api('adminListUsers');
+    const users=data.users||[];
+    $('#adminUsers').innerHTML=users.map(u=>`<div class="mini-item" style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap"><div><strong>${esc(u.name)} <span class="badge ${u.active?'aprovada':'descartada'}">${u.active?'Ativo':'Desativado'}</span></strong><small>@${esc(u.username)} · ${u.role==='admin'?'Administrador':'Membro'}</small></div><div class="card-actions"><button class="ghost" onclick="adminPassword('${u.id}','${esc(u.username)}')">Alterar senha</button>${u.role!=='admin'?`<button class="ghost" onclick="adminToggle('${u.id}',${!u.active})">${u.active?'Desativar':'Ativar'}</button>`:''}</div></div>`).join('')||'<div class="empty">Nenhum usuário.</div>';
+  }catch(e){toast(e.message)}
+}
+window.adminToggle=async function(id,active){if(!confirm(active?'Ativar este usuário?':'Desativar este usuário?'))return;try{await api('adminSetActive',{id,active});toast(active?'Usuário ativado':'Usuário desativado');await loadAdminUsers()}catch(e){toast(e.message)}}
+window.adminPassword=async function(id,username){const password=prompt(`Nova senha para ${username}:`);if(password===null)return;if(password.length<8)return toast('Use pelo menos 8 caracteres');try{await api('adminResetPassword',{id,password});toast('Senha alterada');await loadAdminUsers()}catch(e){toast(e.message)}}
+
+async function loadComments(){try{const data=await api('listComments',{idea_id:currentIdeaForComments});$('#commentsList').innerHTML=(data.comments||[]).map(c=>`<div class="comment"><div class="comment-head"><strong>${esc(authorName(c))}</strong>${canEdit(c)?`<button class="comment-delete" onclick="deleteComment('${c.id}')" title="Excluir comentário">🗑</button>`:''}</div><p>${esc(c.body)}</p></div>`).join('')||'<div class="empty">Nenhum comentário ainda.</div>'}catch(e){toast(e.message)}}
+window.deleteComment=async function(id){if(!confirm('Excluir este comentário?'))return;try{const out=await postRpc('hub_delete_comment',{p_token:hubToken,p_id:id});if(!out?.ok)throw new Error(out?.error||'Não foi possível excluir');await loadComments();toast('Comentário excluído')}catch(e){toast(e.message)}}
+
+$('#authForm').addEventListener('submit',async e=>{e.preventDefault();const username=$('#username').value.trim(),password=$('#password').value;const btn=$('#authSubmit');btn.disabled=true;btn.textContent='Entrando...';try{const out=await postRpc('hub_login',{p_user:username,p_secret:password});if(!out?.ok)throw new Error(out?.error||'Não foi possível entrar');hubToken=out.token;localStorage.setItem('roube_minerios_token',hubToken);$('#password').value='';await enterApp()}catch(err){toast(err.message)}finally{btn.disabled=false;btn.textContent='Entrar'}});
+$('#logoutBtn').onclick=async()=>{try{if(hubToken)await api('logout')}catch{}if(chatTimer)clearInterval(chatTimer);chatTimer=null;localStorage.removeItem('roube_minerios_token');hubToken='';session=null;showAuth()};
+$('#refreshBtn').onclick=refresh;$('#adminRefresh').onclick=loadAdminUsers;$('#mainAction').onclick=()=>openIdea('geral');$('#newDecisionBtn').onclick=()=>$('#decisionModal').showModal();
+$$('.nav-item').forEach(b=>b.onclick=()=>go(b.dataset.page));$$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));$$('[data-close]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.close).close());
+$$('[data-category]').forEach(b=>b.onclick=()=>openIdea(b.dataset.category));$$('[data-upload-category]').forEach(b=>b.onclick=()=>{$('#uploadCategory').value=b.dataset.uploadCategory;$('#uploadForm').reset();$('#uploadCategory').value=b.dataset.uploadCategory;$('#uploadModal').showModal()});
+$$('#ideaFilters button').forEach(b=>b.onclick=()=>{$$('#ideaFilters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');ideaFilter=b.dataset.filter;renderIdeas()});
+async function saveIdeaFromModal(){
+  const btn=$('#ideaSaveBtn');
+  const title=$('#ideaTitle').value.trim();
+  if(!title){toast('Digite um título');$('#ideaTitle').focus();return}
+  const payload={title,description:$('#ideaDescription').value.trim(),status:$('#ideaStatus').value,category:$('#ideaCategory').value};
+  btn.disabled=true;btn.textContent='Salvando...';
+  try{
+    if(editingIdeaId){payload.id=editingIdeaId;await api('editIdea',payload);toast('Ideia atualizada')}
+    else{await api('createIdea',payload);toast('Ideia salva')}
+    editingIdeaId=null;
+    $('#ideaModal').close();
+    await refresh();
+  }catch(err){toast(err.message)}
+  finally{btn.disabled=false;btn.textContent='Salvar'}
+}
+$('#ideaSaveBtn').onclick=saveIdeaFromModal;
+$('#ideaForm').addEventListener('submit',e=>{e.preventDefault();saveIdeaFromModal()});
+$('#decisionForm').addEventListener('submit',async e=>{e.preventDefault();try{await api('createDecision',{title:$('#decisionTitle').value.trim(),details:$('#decisionDetails').value.trim(),status:$('#decisionStatus').value});$('#decisionModal').close();e.target.reset();await refresh()}catch(err){toast(err.message)}});
+$('#commentForm').addEventListener('submit',async e=>{e.preventDefault();const body=$('#commentBody').value.trim();if(!body)return;try{await api('addComment',{idea_id:currentIdeaForComments,body});$('#commentBody').value='';await loadComments()}catch(err){toast(err.message)}});
+$('#chatAttachBtn').onclick=()=>$('#chatImageInput').click();
+$('#chatImageRemove').onclick=clearChatImage;
+$('#chatImageInput').addEventListener('change',e=>{const file=e.target.files?.[0];if(!file)return clearChatImage();if(file.size>5*1024*1024){clearChatImage();return toast('A imagem deve ter no máximo 5 MB')}if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type)){clearChatImage();return toast('Use JPG, PNG, WEBP ou GIF')}chatPendingImage=file;$('#chatImagePreviewImg').src=URL.createObjectURL(file);$('#chatImagePreviewName').textContent=file.name;$('#chatImagePreview').classList.add('show')});
+
+$('#chatInput').addEventListener('paste',e=>{
+  const items=Array.from(e.clipboardData?.items||[]);
+  const imageItem=items.find(item=>item.type&&item.type.startsWith('image/'));
+  if(!imageItem)return;
+  const file=imageItem.getAsFile();
+  if(!file)return;
+  e.preventDefault();
+  if(file.size>5*1024*1024)return toast('A imagem colada deve ter no máximo 5 MB');
+  if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type))return toast('Use JPG, PNG, WEBP ou GIF');
+  const ext=(file.type.split('/')[1]||'png').replace('jpeg','jpg');
+  chatPendingImage=new File([file],`print-${Date.now()}.${ext}`,{type:file.type});
+  $('#chatImagePreviewImg').src=URL.createObjectURL(chatPendingImage);
+  $('#chatImagePreviewName').textContent='Imagem colada da área de transferência';
+  $('#chatImagePreview').classList.add('show');
+  toast('Print colado. Clique em Enviar.');
+});
+$('#chatForm').addEventListener('submit',async e=>{e.preventDefault();const input=$('#chatInput'),body=input.value.trim();if(!body&&!chatPendingImage)return;const btn=$('#chatSendBtn'),attach=$('#chatAttachBtn');btn.disabled=true;attach.disabled=true;$('#chatForm').classList.add('chat-uploading');try{let image_url=null;if(chatPendingImage){toast('Enviando imagem...');image_url=await uploadChatImage(chatPendingImage)}await api('sendChatMessage',{body:body||(image_url?'\u200B':''),image_url});input.value='';clearChatImage();lastChatSignature='';await loadChat(false);await api('markChatRead');state.chatUnread=0;updateChatBadge()}catch(err){toast(err.message)}finally{btn.disabled=false;attach.disabled=false;$('#chatForm').classList.remove('chat-uploading');input.focus()}});
+$('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#chatForm').requestSubmit()}});
+
+$('#uploadForm').addEventListener('submit',async e=>{e.preventDefault();const file=$('#uploadFile').files[0];if(!file)return;if(file.size>1500000)return toast('Imagem muito grande. Use até 1,5 MB.');toast('Salvando imagem...');const reader=new FileReader();reader.onload=async()=>{try{await api('addGallery',{title:$('#uploadTitle').value.trim(),description:$('#uploadDescription').value.trim(),image_url:String(reader.result),category:$('#uploadCategory').value});$('#uploadModal').close();e.target.reset();toast('Imagem adicionada');await refresh()}catch(err){toast(err.message)}};reader.onerror=()=>toast('Não foi possível ler a imagem');reader.readAsDataURL(file)});
+
+init();
+
+</script>
+</body>
+</html>
