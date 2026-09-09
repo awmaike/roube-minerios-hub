@@ -16,3 +16,6 @@ O frontend ainda aponta para o Supabase real: fazer login e usar ações pode al
 O repositório não contém dados privados, senhas, hashes de acesso, sessões ou service-role key. O backup de conteúdo foi guardado separadamente, somente no computador do proprietário.
 
 Nenhum deploy, alteração de DNS ou alteração de banco faz parte desta migração. Preservar o projeto Supabase existente é essencial para manter os dados.
+
+
+> Estrutura de publicação: os arquivos estáticos finais `index.html`, `desktop.html` e `mobile.html` ficam na raiz e espelham `src/`.
