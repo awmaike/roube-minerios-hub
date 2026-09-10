@@ -206,12 +206,12 @@ body{background:radial-gradient(circle at 84% -8%,rgba(0,220,188,.34),transparen
 
 
   <dialog id="scriptModal" class="modal">
-    <form id="scriptForm" class="modal-card" style="max-width:900px">
+    <form id="scriptForm" class="modal-card" style="max-width:900px" onsubmit="return false">
       <div class="modal-head"><div><small>DRIVE</small><h3 id="scriptModalTitle">Novo script Lua</h3></div><button class="icon-btn" type="button" data-close="scriptModal">×</button></div>
       <div class="field"><label>Nome do arquivo</label><input id="scriptName" maxlength="120" placeholder="Ex.: SistemaDeMineracao.lua" autocomplete="off"></div>
       <div class="field"><label>Código Lua</label><div style="display:grid;grid-template-columns:42px 1fr;border:1px solid #26374b;border-radius:10px;overflow:hidden;background:#07111b"><pre id="scriptLineNumbers" style="margin:0;padding:11px 8px;text-align:right;color:#6f91a7;background:#0c1a28;font:13px/1.5 ui-monospace,monospace;overflow:hidden">1</pre><textarea id="scriptEditor" rows="18" spellcheck="false" placeholder="-- Cole ou escreva o código Lua aqui" style="width:100%;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.5;tab-size:2;border:0;border-radius:0"></textarea></div></div>
       <small id="scriptFolderLabel" class="muted"></small>
-      <div class="modal-actions"><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="submit">Salvar script</button></div>
+      <div class="modal-actions"><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="button" onclick="saveDriveScript()">Salvar script</button></div>
     </form>
   </dialog>
 
@@ -531,23 +531,16 @@ window.openDriveScript=async id=>{
   }catch(e){toast(e.message)}
 }
 $('#newScriptBtn').onclick=openNewScript;$('#recycleBtn').onclick=showRecycle;$$('#driveFilters button').forEach(b=>b.onclick=()=>{$$('#driveFilters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');driveFilter=b.dataset.driveFilter;loadModels()});$('#toggleUploadBtn').onclick=()=>$('#driveUploadCard').classList.toggle('hidden');
-$('#scriptForm').onsubmit=async ev=>{
-  ev.preventDefault();
-  const b=$('#scriptSaveBtn'), content=$('#scriptEditor').value;
-  let name=$('#scriptName').value.trim();
-  if(!editingScriptId&& !name)return toast('Informe o nome do script');
+window.saveDriveScript=async()=>{
+  const b=$('#scriptSaveBtn'),content=$('#scriptEditor').value;let name=$('#scriptName').value.trim();
+  if(!editingScriptId&&!name)return toast('Informe o nome do script');
   if(!editingScriptId&&!name.toLowerCase().endsWith('.lua'))name+='.lua';
   b.disabled=true;b.textContent='Salvando...';
   try{
     const payload=editingScriptId?{id:editingScriptId,content}:{name,content,folder_id:selectedDriveFolder()};
     const r=await fetch(fileApi('?action=script'),{method:editingScriptId?'PUT':'POST',headers:{'x-hub-token':hubToken,'Content-Type':'application/json'},body:JSON.stringify(payload)}),o=await r.json();
-    if(!r.ok)throw Error(o.error);
-    editingScriptId=o.script.id;
-    $('#scriptName').value=o.script.file_name;
-    $('#scriptName').disabled=true;
-    $('#scriptModalTitle').textContent='Editar script Lua';
-    toast('Script salvo');
-    loadModels();
+    if(!r.ok)throw Error(o.error||'Não foi possível salvar o script');
+    editingScriptId=o.script.id;$('#scriptName').value=o.script.file_name;$('#scriptName').disabled=true;$('#scriptModalTitle').textContent='Editar script Lua';toast('Script salvo');loadModels();
   }catch(e){toast(e.message)}finally{b.disabled=false;b.textContent='Salvar script'}
 };
 $('#scriptDuplicateBtn').onclick=()=>{editingScriptId=null;$('#scriptName').disabled=false;$('#scriptName').value=$('#scriptName').value.replace(/\.lua$/i,'')+'-copia.lua';toast('Salve para criar a cópia')};function syncScriptLines(){const e=$('#scriptEditor'),n=$('#scriptLineNumbers');if(e&&n){n.textContent=Array.from({length:(e.value.match(/\n/g)||[]).length+1},(_,i)=>i+1).join('\n');n.scrollTop=e.scrollTop}};
