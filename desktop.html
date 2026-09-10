@@ -211,7 +211,7 @@ body{background:radial-gradient(circle at 84% -8%,rgba(0,220,188,.34),transparen
       <div class="field"><label>Nome do arquivo</label><input id="scriptName" maxlength="120" placeholder="Ex.: SistemaDeMineracao.lua" autocomplete="off"></div>
       <div class="field"><label>Código Lua</label><div style="display:grid;grid-template-columns:42px 1fr;border:1px solid #26374b;border-radius:10px;overflow:hidden;background:#07111b"><pre id="scriptLineNumbers" style="margin:0;padding:11px 8px;text-align:right;color:#6f91a7;background:#0c1a28;font:13px/1.5 ui-monospace,monospace;overflow:hidden">1</pre><textarea id="scriptEditor" rows="18" spellcheck="false" placeholder="-- Cole ou escreva o código Lua aqui" style="width:100%;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.5;tab-size:2;border:0;border-radius:0"></textarea></div></div>
       <small id="scriptFolderLabel" class="muted"></small>
-      <div class="modal-actions"><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="submit">Salvar script</button></div>
+      <div class="modal-actions"><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="submit">Salvar script</button></div>
     </form>
   </dialog>
 
@@ -446,7 +446,7 @@ $('#uploadForm').addEventListener('submit',async e=>{e.preventDefault();const fi
 let editingScriptId = null;
 const fileApi = (path = '') => `${SUPABASE_URL}/functions/v1/model-assets${path}`;
 
-let currentDriveFolderId = null, driveFolders = [] ;
+let currentDriveFolderId = null, driveFolders = [], driveFilter = 'all';
 
 function drivePath(){
   const chain=[];let id=currentDriveFolderId;
