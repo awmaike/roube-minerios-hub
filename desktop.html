@@ -84,7 +84,7 @@
         <div id="oreGallery" class="gallery-grid"></div>
       </section>
 
-      <section id="page-models" class="page"><div class="section-intro"><div><p>Arquivos do Blender, modelos e scripts do projeto.</p></div><div style="display:flex;gap:8px"><button class="ghost" id="newFolderBtn" type="button">+ Nova pasta</button><button class="primary" id="newScriptBtn" type="button">+ Novo script</button></div></div><div class="card"><div class="field"><label>Nome do modelo</label><input id="modelName" maxlength="100" placeholder="Ex.: Picareta de ferro"></div><div class="field"><label>Local atual</label><div id="driveBreadcrumb" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"></div></div><div class="field"><label>Arquivo</label><input id="modelFile" type="file" accept=".blend,.obj,.mtl,.glb,.gltf,.fbx,.dae,.stl,.zip,.png,.jpg,.jpeg,.webp,.lua,.luau,.rbxl,.rbxm,.txt,.pdf"></div><button class="primary" id="modelUploadBtn">Enviar arquivo</button><small class="muted">GLB e GLTF têm prévia 3D. Scripts Lua podem ser criados e editados diretamente aqui.</small></div><div id="modelsList" class="cards-grid" style="margin-top:16px"></div></section><section id="page-mechanics" class="page">
+      <section id="page-models" class="page"><div class="section-intro"><div><p>Arquivos do Blender, modelos e scripts do projeto.</p></div><div style="display:flex;gap:8px"><button class="ghost" id="recycleBtn" type="button">♻ Lixeira</button><button class="ghost" id="newFolderBtn" type="button">+ Nova pasta</button><button class="primary" id="newScriptBtn" type="button">+ Novo script</button></div></div><div class="card"><div class="field"><label>Nome do modelo</label><input id="modelName" maxlength="100" placeholder="Ex.: Picareta de ferro"></div><div class="field"><label>Local atual</label><div id="driveBreadcrumb" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"></div></div><div class="field"><label>Arquivo</label><input id="modelFile" type="file" accept=".blend,.obj,.mtl,.glb,.gltf,.fbx,.dae,.stl,.zip,.png,.jpg,.jpeg,.webp,.lua,.luau,.rbxl,.rbxm,.txt,.pdf"></div><button class="primary" id="modelUploadBtn">Enviar arquivo</button><small class="muted">GLB e GLTF têm prévia 3D. Scripts Lua podem ser criados e editados diretamente aqui.</small></div><div class="field" style="margin-top:16px"><input id="driveSearch" placeholder="Pesquisar nesta pasta..."></div><div class="field" style="margin-top:16px"><input id="driveSearch" placeholder="Pesquisar nesta pasta..."></div><div id="modelsList" class="cards-grid" style="margin-top:16px"></div></section><section id="page-mechanics" class="page">
         <div class="section-intro"><div><h3>Mecânicas</h3><p>Registre sistemas do jogo como mineração, bases, peso, pureza e roubo.</p></div><button class="primary" data-category="mecanica">+ Nova mecânica</button></div>
         <div id="mechanicsList" class="cards-grid"></div>
       </section>
@@ -165,7 +165,7 @@
       <div class="field"><label>Nome do arquivo</label><input id="scriptName" maxlength="120" placeholder="Ex.: SistemaDeMineracao.lua" autocomplete="off"></div>
       <div class="field"><label>Código Lua</label><textarea id="scriptEditor" rows="18" spellcheck="false" placeholder="-- Cole ou escreva o código Lua aqui" style="width:100%;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.5;tab-size:2"></textarea></div>
       <small id="scriptFolderLabel" class="muted"></small>
-      <div class="modal-actions"><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="submit">Salvar script</button></div>
+      <div class="modal-actions"><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="submit">Salvar script</button></div>
     </form>
   </dialog>
 
@@ -400,7 +400,7 @@ $('#uploadForm').addEventListener('submit',async e=>{e.preventDefault();const fi
 let editingScriptId = null;
 const fileApi = (path = '') => `${SUPABASE_URL}/functions/v1/model-assets${path}`;
 
-let currentDriveFolderId = null, driveFolders = [];
+let currentDriveFolderId = null, driveFolders = [], driveQuery = '';
 
 function drivePath(){
   const chain=[];let id=currentDriveFolderId;
@@ -422,20 +422,27 @@ async function loadModels(){
     driveFolders=o.folders||[];
     if(currentDriveFolderId&&!driveFolders.some(x=>x.id===currentDriveFolderId))currentDriveFolderId=null;
     renderDriveBreadcrumb();
-    const folders=driveFolders.filter(x=>(x.parent_id||null)===(currentDriveFolderId||null));
-    const files=(o.models||[]).filter(x=>(x.folder_id||null)===(currentDriveFolderId||null));
-    const folderCards=folders.map(f=>`<article class="idea-card"><span class="badge">PASTA</span><h4>📁 ${esc(f.name)}</h4><small>Pasta do Drive</small><div class="gallery-actions"><button class="ghost" type="button" onclick="openDriveFolder('${f.id}')">Abrir</button></div></article>`);
+    const q=driveQuery.toLowerCase();
+    const folders=driveFolders.filter(x=>(x.parent_id||null)===(currentDriveFolderId||null)&&x.name.toLowerCase().includes(q));
+    window.driveFiles=o.models||[];
+    const files=window.driveFiles.filter(x=>(x.folder_id||null)===(currentDriveFolderId||null)&&String(x.file_name||x.name).toLowerCase().includes(q));
+    const folderCards=folders.map(f=>`<article class="idea-card"><span class="badge">PASTA</span><h4>📁 ${esc(f.name)}</h4><small>Pasta do Drive</small><div class="gallery-actions" style="gap:8px"><button class="ghost" type="button" onclick="openDriveFolder('${f.id}')">Abrir</button><button class="ghost" type="button" onclick="renameDriveItem('folder','${f.id}')">Renomear</button><button class="ghost" type="button" onclick="deleteDriveFolder('${f.id}')">Excluir</button></div></article>`);
     const fileCards=files.map(m=>{
       const isTextFile=['lua','luau','txt'].includes(String(m.file_type).toLowerCase());
-      const preview=['glb','gltf'].includes(m.file_type)?`<model-viewer src="${esc(m.file_url)}" camera-controls auto-rotate style="width:100%;height:230px;background:#09131d;border-radius:10px"></model-viewer>`:'';
+      const preview=['png','jpg','jpeg','webp','gif'].includes(String(m.file_type).toLowerCase())?`<img src="${esc(m.file_url)}" alt="${esc(m.file_name)}" style="width:100%;height:160px;object-fit:cover;border-radius:10px">`:['glb','gltf'].includes(m.file_type)?`<model-viewer src="${esc(m.file_url)}" camera-controls auto-rotate style="width:100%;height:230px;background:#09131d;border-radius:10px"></model-viewer>`:'';
       const size=isTextFile?`${Math.max(0,Number(m.file_size||0))} bytes`:`${(Number(m.file_size||0)/1048576).toFixed(1)} MB`;
       const open=isTextFile?`<button class="ghost" type="button" onclick="openDriveScript('${m.id}')">${m.file_type==='txt'?'Abrir texto':'Abrir script'}</button>`:`${m.file_url?`<a class="ghost" href="${esc(m.file_url)}" download>Baixar</a>`:''}`;
-      const remove=`<button class="ghost" type="button" onclick="deleteDriveFile('${m.id}')">Excluir</button>`;
-      return `<article class="idea-card"><span class="badge">.${esc(m.file_type)}</span><h4>${esc(m.file_name||m.name)}</h4>${preview}<small>${esc(m.author_name)} · ${size}</small><div class="gallery-actions" style="gap:8px">${open}${remove}</div></article>`;
+      const remove=`<button class="ghost" type="button" onclick="renameDriveItem('file','${m.id}')">Renomear</button><button class="ghost" type="button" onclick="copyDriveLink('${m.id}')">Copiar link</button><button class="ghost" type="button" onclick="deleteDriveFile('${m.id}')">Excluir</button>`;
+      return `<article class="idea-card"><span class="badge">.${esc(m.file_type)}</span><h4>${esc(m.file_name||m.name)}</h4>${preview}<small>${esc(m.author_name)} · ${size} · ${date(m.created_at)}</small><div class="gallery-actions" style="gap:8px">${open}${remove}</div></article>`;
     });
     box.innerHTML=[...folderCards,...fileCards].join('')||'<div class="empty">Esta pasta está vazia.</div>';
   }catch(e){box.innerHTML='<div class="empty">'+esc(e.message)+'</div>'}
 }
+window.renameDriveItem=async(kind,id)=>{const list=kind==='folder'?driveFolders:(window.driveFiles||[]),item=list.find(x=>x.id===id),name=prompt('Novo nome:',item?.file_name||item?.name||'');if(!name?.trim())return;try{const r=await fetch(fileApi('?action=drive'),{method:'POST',headers:{'x-hub-token':hubToken,'Content-Type':'application/json'},body:JSON.stringify({kind,id,operation:'rename',name:name.trim()})}),o=await r.json();if(!r.ok)throw Error(o.error);toast('Renomeado');loadModels()}catch(e){toast(e.message)}};
+window.copyDriveLink=async id=>{try{const m=(window.driveFiles||[]).find(x=>x.id===id);await navigator.clipboard.writeText(m?.file_url||'');toast('Link copiado')}catch{toast('Não foi possível copiar o link')}};
+window.deleteDriveFolder=async id=>{if(!confirm('Excluir esta pasta vazia?'))return;try{const r=await fetch(fileApi('?action=drive'),{method:'POST',headers:{'x-hub-token':hubToken,'Content-Type':'application/json'},body:JSON.stringify({kind:'folder',id,operation:'delete'})}),o=await r.json();if(!r.ok)throw Error(o.error);toast('Pasta enviada para a lixeira');loadModels()}catch(e){toast(e.message)}};
+async function showRecycle(){const box=$('#modelsList');try{const r=await fetch(fileApi('?action=recycle'),{headers:{'x-hub-token':hubToken}}),o=await r.json();if(!r.ok)throw Error(o.error);box.innerHTML=[...(o.folders||[]).map(x=>({kind:'folder',...x})),...(o.files||[]).map(x=>({kind:'file',...x}))].map(x=>`<article class="idea-card"><span class="badge">LIXEIRA</span><h4>${esc(x.file_name||x.name)}</h4><button class="ghost" onclick="restoreDriveItem('${x.kind}','${x.id}')">Restaurar</button></article>`).join('')||'<div class="empty">Lixeira vazia.</div>'}catch(e){toast(e.message)}};
+window.restoreDriveItem=async(kind,id)=>{try{const r=await fetch(fileApi('?action=drive'),{method:'POST',headers:{'x-hub-token':hubToken,'Content-Type':'application/json'},body:JSON.stringify({kind,id,operation:'restore'})}),o=await r.json();if(!r.ok)throw Error(o.error);toast('Restaurado');showRecycle()}catch(e){toast(e.message)}};
 window.deleteDriveFile=async id=>{
   if(!confirm('Excluir este arquivo?'))return;
   try{
@@ -471,7 +478,7 @@ window.openDriveScript=async id=>{
     $('#scriptEditor').focus();
   }catch(e){toast(e.message)}
 }
-$('#newScriptBtn').onclick=openNewScript;
+$('#newScriptBtn').onclick=openNewScript;$('#recycleBtn').onclick=showRecycle;$('#driveSearch').oninput=e=>{driveQuery=e.target.value;loadModels()};
 $('#scriptForm').onsubmit=async ev=>{
   ev.preventDefault();
   const b=$('#scriptSaveBtn'), content=$('#scriptEditor').value;
@@ -491,7 +498,7 @@ $('#scriptForm').onsubmit=async ev=>{
     loadModels();
   }catch(e){toast(e.message)}finally{b.disabled=false;b.textContent='Salvar script'}
 };
-$('#scriptCopyBtn').onclick=async()=>{
+$('#scriptDuplicateBtn').onclick=()=>{editingScriptId=null;$('#scriptName').disabled=false;$('#scriptName').value=$('#scriptName').value.replace(/\.lua$/i,'')+'-copia.lua';toast('Salve para criar a cópia')};$('#scriptCopyBtn').onclick=async()=>{
   try{await navigator.clipboard.writeText($('#scriptEditor').value);toast('Código copiado')}catch(e){toast('Não foi possível copiar o código')}
 };
 $('#newFolderBtn').onclick=async()=>{
