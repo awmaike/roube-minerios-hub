@@ -84,7 +84,7 @@
         <div id="oreGallery" class="gallery-grid"></div>
       </section>
 
-      <section id="page-models" class="page"><div class="section-intro"><div><p>Arquivos do Blender, modelos e scripts do projeto.</p></div><div style="display:flex;gap:8px"><button class="ghost" id="recycleBtn" type="button">♻ Lixeira</button><button class="ghost" id="toggleUploadBtn" type="button">↑ Enviar arquivo</button><button class="ghost" id="newFolderBtn" type="button">+ Nova pasta</button><button class="primary" id="newScriptBtn" type="button">+ Novo script</button></div></div><div class="card hidden" id="driveUploadCard"><div class="field"><label>Nome do arquivo</label><input id="modelName" maxlength="100" placeholder="Ex.: Picareta de ferro"></div><div class="field"><label>Local atual</label><div id="driveBreadcrumb" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"></div></div><div class="field"><label>Arquivo</label><input id="modelFile" type="file" accept=".blend,.obj,.mtl,.glb,.gltf,.fbx,.dae,.stl,.zip,.png,.jpg,.jpeg,.webp,.lua,.luau,.rbxl,.rbxm,.txt,.pdf"></div><button class="primary" id="modelUploadBtn">Enviar arquivo</button><small class="muted">GLB e GLTF têm prévia 3D. Scripts Lua podem ser criados e editados diretamente aqui.</small></div><div id="modelsList" class="cards-grid" style="margin-top:16px"></div></section><section id="page-mechanics" class="page">
+      <section id="page-models" class="page"><div class="section-intro"><div><p>Arquivos do Blender, modelos e scripts do projeto.</p><div id="drivePathTop" style="margin-top:10px"></div></div><div style="display:flex;gap:8px"><button class="ghost" id="recycleBtn" type="button">♻ Lixeira</button><button class="ghost" id="toggleUploadBtn" type="button">↑ Enviar arquivo</button><button class="ghost" id="newFolderBtn" type="button">+ Nova pasta</button><button class="primary" id="newScriptBtn" type="button">+ Novo script</button></div></div><div class="card hidden" id="driveUploadCard"><div class="field"><label>Nome do arquivo</label><input id="modelName" maxlength="100" placeholder="Ex.: Picareta de ferro"></div><div class="field"><label>Local atual</label><div id="driveBreadcrumb" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"></div></div><div class="field"><label>Arquivo</label><input id="modelFile" type="file" accept=".blend,.obj,.mtl,.glb,.gltf,.fbx,.dae,.stl,.zip,.png,.jpg,.jpeg,.webp,.lua,.luau,.rbxl,.rbxm,.txt,.pdf"></div><button class="primary" id="modelUploadBtn">Enviar arquivo</button><small class="muted">GLB e GLTF têm prévia 3D. Scripts Lua podem ser criados e editados diretamente aqui.</small></div><div id="modelsList" class="cards-grid" style="margin-top:16px"></div></section><section id="page-mechanics" class="page">
         <div class="section-intro"><div><h3>Mecânicas</h3><p>Registre sistemas do jogo como mineração, bases, peso, pureza e roubo.</p></div><button class="primary" data-category="mecanica">+ Nova mecânica</button></div>
         <div id="mechanicsList" class="cards-grid"></div>
       </section>
@@ -409,8 +409,9 @@ function drivePath(){
 }
 function renderDriveBreadcrumb(){
   const box=$('#driveBreadcrumb'), chain=drivePath();
-  box.innerHTML=`<button class="ghost" type="button" onclick="openDriveFolder(null)">📁 Meu Drive</button>`+
+  const path=`<button class="ghost" type="button" onclick="openDriveFolder(null)">📁 Meu Drive</button>`+
     chain.map(f=>`<span style="color:var(--muted)">/</span><button class="link" type="button" onclick="openDriveFolder('${f.id}')">${esc(f.name)}</button>`).join('');
+  box.innerHTML=path;const top=$('#drivePathTop');if(top)top.innerHTML=path;
 }
 window.openDriveFolder=id=>{currentDriveFolderId=id||null;loadModels()};
 async function loadModels(){
@@ -425,13 +426,13 @@ async function loadModels(){
     const folders=driveFolders.filter(x=>(x.parent_id||null)===(currentDriveFolderId||null));
     window.driveFiles=o.models||[];
     const files=window.driveFiles.filter(x=>(x.folder_id||null)===(currentDriveFolderId||null));
-    const folderCards=folders.map(f=>`<article class="idea-card"><span class="badge">📁 PASTA</span><h4>${esc(f.name)}</h4><small>Pasta do Drive</small><div class="gallery-actions" style="gap:8px"><button class="ghost" type="button" onclick="openDriveFolder('${f.id}')">Abrir</button><button class="ghost" type="button" title="Ações" onclick="driveMenu('folder','${f.id}')">⋮</button></div></article>`);
+    const folderCards=folders.map(f=>`<article class="idea-card"><span class="badge">📁 PASTA</span><h4>${esc(f.name)}</h4><small>Pasta do Drive</small><div class="gallery-actions" style="gap:8px"><button class="ghost" type="button" onclick="openDriveFolder('${f.id}')">Abrir</button><button class="ghost" type="button" onclick="renameDriveItem('folder','${f.id}')">Renomear</button><button class="ghost" type="button" onclick="moveDriveItem('folder','${f.id}')">Mover</button><button class="ghost" type="button" onclick="deleteDriveFolder('${f.id}')">Excluir</button></div></article>`);
     const fileCards=files.map(m=>{
       const isTextFile=['lua','luau','txt'].includes(String(m.file_type).toLowerCase());
       const preview=['png','jpg','jpeg','webp','gif'].includes(String(m.file_type).toLowerCase())?`<img src="${esc(m.file_url)}" alt="${esc(m.file_name)}" style="width:100%;height:160px;object-fit:cover;border-radius:10px">`:['glb','gltf'].includes(m.file_type)?`<model-viewer src="${esc(m.file_url)}" camera-controls auto-rotate style="width:100%;height:230px;background:#09131d;border-radius:10px"></model-viewer>`:'';
       const size=isTextFile?`${Math.max(0,Number(m.file_size||0))} bytes`:`${(Number(m.file_size||0)/1048576).toFixed(1)} MB`;
       const open=isTextFile?`<button class="ghost" type="button" onclick="openDriveScript('${m.id}')">${m.file_type==='txt'?'Abrir texto':'Abrir script'}</button>`:`${m.file_url?`<a class="ghost" href="${esc(m.file_url)}" download>Baixar</a>`:''}`;
-      const remove=`<button class="ghost" type="button" title="Ações" onclick="driveMenu('file','${m.id}')">⋮</button>`;
+      const remove=`<button class="ghost" type="button" onclick="renameDriveItem('file','${m.id}')">Renomear</button><button class="ghost" type="button" onclick="moveDriveItem('file','${m.id}')">Mover</button><button class="ghost" type="button" onclick="copyDriveLink('${m.id}')">Copiar link</button><button class="ghost" type="button" onclick="deleteDriveFile('${m.id}')">Excluir</button>`;
       return `<article class="idea-card"><span class="badge">.${esc(m.file_type)}</span><h4>${esc(m.file_name||m.name)}</h4>${preview}<small>${esc(m.author_name)} · ${size} · ${date(m.created_at)}</small><div class="gallery-actions" style="gap:8px">${open}${remove}</div></article>`;
     });
     box.innerHTML=[...folderCards,...fileCards].join('')||'<div class="empty">Esta pasta está vazia.</div>';
