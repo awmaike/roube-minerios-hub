@@ -404,8 +404,11 @@ async function loadModels(){
   const box=$('#modelsList'), previousFolder=$('#modelFolder').value;
   box.innerHTML='<div class="empty">Carregando arquivos...</div>';
   try{
-    const r=await fetch(fileApi(),{headers:{'x-hub-token':hubToken}}),o=await r.json();
-    if(!r.ok)throw Error(o.error);
+    const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),12000);
+    const r=await fetch(fileApi(),{headers:{'x-hub-token':hubToken},signal:controller.signal});
+    clearTimeout(timer);
+    const o=await r.json();
+    if(!r.ok)throw Error(o.error||'Não foi possível carregar os arquivos');
     $('#modelFolder').innerHTML='<option value="">Sem pasta</option>'+(o.folders||[]).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');
     $('#modelFolder').value=(o.folders||[]).some(x=>x.id===previousFolder)?previousFolder:'';
     box.innerHTML=(o.models||[]).map(m=>{
@@ -413,10 +416,19 @@ async function loadModels(){
       const preview=['glb','gltf'].includes(m.file_type)?`<model-viewer src="${esc(m.file_url)}" camera-controls auto-rotate style="width:100%;height:230px;background:#09131d;border-radius:10px"></model-viewer>`:'';
       const size=isScript?`${Math.max(0,Number(m.file_size||0))} bytes`:`${(Number(m.file_size||0)/1048576).toFixed(1)} MB`;
       const open=isScript?`<button class="ghost" type="button" onclick="openDriveScript('${m.id}')">Abrir script</button>`:`${m.file_url?`<a class="ghost" href="${esc(m.file_url)}" download>Baixar</a>`:''}`;
-      return `<article class="idea-card"><span class="badge">.${esc(m.file_type)}</span><h4>${esc(m.file_name||m.name)}</h4>${preview}<small>${esc(m.author_name)} · ${size}${m.project_folders?.name?` · ${esc(m.project_folders.name)}`:''}</small><div class="gallery-actions">${open}</div></article>`;
+      const remove=`<button class="ghost" type="button" onclick="deleteDriveFile('${m.id}')">Excluir</button>`;
+      return `<article class="idea-card"><span class="badge">.${esc(m.file_type)}</span><h4>${esc(m.file_name||m.name)}</h4>${preview}<small>${esc(m.author_name)} · ${size}${m.project_folders?.name?` · ${esc(m.project_folders.name)}`:''}</small><div class="gallery-actions" style="gap:8px">${open}${remove}</div></article>`;
     }).join('')||'<div class="empty">Nenhum arquivo nesta pasta.</div>';
   }catch(e){box.innerHTML='<div class="empty">'+esc(e.message)+'</div>'}
 }
+window.deleteDriveFile=async id=>{
+  if(!confirm('Excluir este arquivo?'))return;
+  try{
+    const r=await fetch(fileApi('?id='+encodeURIComponent(id)),{method:'DELETE',headers:{'x-hub-token':hubToken}}),o=await r.json();
+    if(!r.ok)throw Error(o.error||'Não foi possível excluir o arquivo');
+    toast('Arquivo excluído');loadModels();
+  }catch(e){toast(e.message)}
+};
 function selectedDriveFolder(){return $('#modelFolder').value||null}
 function openNewScript(){
   editingScriptId=null;
