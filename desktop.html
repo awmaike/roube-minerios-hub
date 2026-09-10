@@ -208,7 +208,7 @@ body{background:radial-gradient(circle at 84% -8%,rgba(0,220,188,.34),transparen
   <dialog id="scriptModal" class="modal">
     <form id="scriptForm" class="modal-card" style="max-width:900px" onsubmit="return false">
       <div class="modal-head"><div><small>DRIVE</small><h3 id="scriptModalTitle">Novo script Lua</h3></div><button class="icon-btn" type="button" data-close="scriptModal">×</button></div>
-      <div class="field"><label>Nome do arquivo</label><input id="scriptName" maxlength="120" placeholder="Ex.: SistemaDeMineracao.lua" autocomplete="off"></div>
+      <div class="field"><label>Nome do arquivo</label><input id="scriptName" maxlength="120" placeholder="Ex.: Sistema de Mineração" autocomplete="off"></div>
       <div class="field"><label>Código Lua</label><div style="display:grid;grid-template-columns:42px 1fr;border:1px solid #26374b;border-radius:10px;overflow:hidden;background:#07111b"><pre id="scriptLineNumbers" style="margin:0;padding:11px 8px;text-align:right;color:#6f91a7;background:#0c1a28;font:13px/1.5 ui-monospace,monospace;overflow:hidden">1</pre><textarea id="scriptEditor" rows="18" spellcheck="false" placeholder="-- Cole ou escreva o código Lua aqui" style="width:100%;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.5;tab-size:2;border:0;border-radius:0"></textarea></div></div>
       <small id="scriptFolderLabel" class="muted"></small>
       <div class="modal-actions"><button class="ghost" id="scriptDuplicateBtn" type="button">Duplicar</button><button class="ghost" id="scriptCopyBtn" type="button">Copiar código</button><button class="ghost" type="button" data-close="scriptModal">Cancelar</button><button class="primary" id="scriptSaveBtn" type="button" onclick="saveDriveScript()">Salvar script</button></div>
@@ -534,7 +534,7 @@ $('#newScriptBtn').onclick=openNewScript;$('#recycleBtn').onclick=showRecycle;$$
 window.saveDriveScript=async()=>{
   const b=$('#scriptSaveBtn'),content=$('#scriptEditor').value;let name=$('#scriptName').value.trim();
   if(!editingScriptId&&!name)return toast('Informe o nome do script');
-  if(!editingScriptId&&!name.toLowerCase().endsWith('.lua'))name+='.lua';
+  if(!editingScriptId)name=name.replace(/\.[^/.]+$/,'');
   b.disabled=true;b.textContent='Salvando...';
   try{
     const payload=editingScriptId?{id:editingScriptId,content}:{name,content,folder_id:selectedDriveFolder()};
