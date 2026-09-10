@@ -62,6 +62,11 @@ body{background:radial-gradient(circle at 84% -8%,rgba(0,220,188,.34),transparen
 #page-chat .chat-shell{border-color:rgba(39,193,190,.4);box-shadow:0 16px 45px rgba(0,0,0,.24)}
 #page-chat .chat-row.mine .chat-bubble{background:linear-gradient(135deg,#126d62,#0c4d76);border-color:#35dac5}
 
+/* Visualização de imagem ampliada */
+.image-viewer{width:min(96vw,1500px);height:92vh;max-width:none}
+.image-viewer .modal-card{height:100%;padding:16px;display:flex;flex-direction:column;background:#08131d;border-color:rgba(78,220,195,.35)}
+.image-viewer .modal-head{flex:0 0 auto}
+.image-viewer img{flex:1;min-height:0;width:100%;max-height:none;object-fit:contain;border-radius:14px;background:#03080d;cursor:zoom-out}
 </style>
 </head>
 <body>
