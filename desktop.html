@@ -530,7 +530,7 @@ window.openDriveScript=async id=>{
     $('#scriptEditor').focus();
   }catch(e){toast(e.message)}
 }
-$('#newScriptBtn').onclick=openNewScript;$('#recycleBtn').onclick=showRecycle;$('#driveFilters button').forEach(b=>b.onclick=()=>{$('#driveFilters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');driveFilter=b.dataset.driveFilter;loadModels()});$('#toggleUploadBtn').onclick=()=>$('#driveUploadCard').classList.toggle('hidden');
+$('#newScriptBtn').onclick=openNewScript;$('#recycleBtn').onclick=showRecycle;$$('#driveFilters button').forEach(b=>b.onclick=()=>{$$('#driveFilters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');driveFilter=b.dataset.driveFilter;loadModels()});$('#toggleUploadBtn').onclick=()=>$('#driveUploadCard').classList.toggle('hidden');
 $('#scriptForm').onsubmit=async ev=>{
   ev.preventDefault();
   const b=$('#scriptSaveBtn'), content=$('#scriptEditor').value;
