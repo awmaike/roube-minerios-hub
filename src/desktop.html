@@ -568,7 +568,7 @@ $('#modelUploadBtn').onclick=async()=>{
   if(!file||!name)return toast('Informe o nome e selecione o arquivo');
   const b=$('#modelUploadBtn');b.disabled=true;b.textContent='Enviando...';
   try{
-    if(file.size>45*1024*1024){
+    if(file.size>10*1024*1024){
       toast('Preparando envio grande...');
       const start=await fetch(fileApi('?action=r2-upload'),{method:'POST',headers:{'x-hub-token':hubToken,'Content-Type':'application/json'},body:JSON.stringify({file_name:file.name,file_size:file.size})});
       const ticket=await start.json();if(!start.ok)throw Error(ticket.error||'Não foi possível preparar o upload');
